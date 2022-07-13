@@ -2,7 +2,7 @@ let runLoop = true;
 let userInput;
 const inputArr = [];
 
-function changeStr() {
+export function changeStr() {
   let string;
   if (inputArr.length === 0) {
     if (userInput === undefined) string = `Dame un número`;
@@ -13,12 +13,12 @@ function changeStr() {
   return string;
 }
 
-function checkCondition() {
+export function checkCondition() {
   if (inputArr.length === 2) runLoop = false;
   else if (inputArr.length === 1 && userInput === null) runLoop = false;
 }
 
-function getInput() {
+export function getInput() {
   const string = changeStr();
   userInput = prompt(string);
   if (userInput !== null) {
@@ -28,7 +28,7 @@ function getInput() {
   checkCondition();
 }
 
-function showResults() {
+export function showResults() {
   if (inputArr.length === 1)
     alert(
       `la raíz cuadrada de ${inputArr[0]} es ${Math.sqrt(inputArr[0]).toFixed(
