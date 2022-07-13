@@ -13,6 +13,11 @@ function changeStr() {
   return string;
 }
 
+function checkCondition() {
+  if (inputArr.length === 2) runLoop = false;
+  else if (inputArr.length === 1 && userInput === null) runLoop = false;
+}
+
 function getInput() {
   const string = changeStr();
   userInput = prompt(string);
@@ -23,15 +28,7 @@ function getInput() {
   checkCondition();
 }
 
-//función para cambiar el bool runLoop
-function checkCondition() {
-  if (inputArr.length === 2) runLoop = false;
-  else if (inputArr.length === 1 && userInput === null) runLoop = false;
-}
-//función para enseñar el resultado final
 function showResults() {
-  console.log(inputArr);
-  //raiz cuadrada
   if (inputArr.length === 1)
     alert(
       `la raíz cuadrada de ${inputArr[0]} es ${Math.sqrt(inputArr[0]).toFixed(
@@ -49,10 +46,8 @@ function showResults() {
   El resultado de la división de tus números es ${inputArr[0] / inputArr[1]}`);
 }
 
-//el loop
 while (runLoop) {
   getInput();
-  console.log(userInput);
 }
-//si el run para de correr llama la función showResults();
+
 if (!runLoop) showResults();
