@@ -1,0 +1,76 @@
+* {
+  background: black;
+  color: white;
+  font-family: "myFont2";
+}
+
+#wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+#tablero {
+  width: 50vw;
+  height: 60vh;
+  padding-top: 2vh;
+}
+
+#inner-div {
+  height: 100%;
+  width: 15%;
+  background-image: url("./img/tablero.png");
+  background-size: 100% 100%;
+}
+
+#inner-div-buttons {
+  height: 100%;
+  width: 15%;
+  background: blue;
+}
+
+#outter-div {
+  height: 15%;
+  display: flex;
+  object-fit: fill;
+}
+
+#text-box {
+  position: absolute;
+  bottom: 0;
+  background: darkblue;
+  border: solid white 2px;
+  width: 90%;
+  height: 15vh;
+}
+
+button {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  padding: none;
+  margin: none;
+}
+
+#button-div {
+  height: 10vh;
+  background: darkblue;
+  border: solid white 2px;
+  width: 50vw;
+  height: 5vh;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+@font-face {
+  font-family: "myFont2";
+  src: local("myFont2"), url("./font/dogica.ttf") format("truetype");
+  font-weight: bold;
+}
