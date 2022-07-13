@@ -13,5 +13,6 @@ module.exports = {
     "no-restricted-syntax": "off",
     "no-alert": "off",
     "no-console": "off",
+    "import/prefer-default-export": "off",
   },
 };
