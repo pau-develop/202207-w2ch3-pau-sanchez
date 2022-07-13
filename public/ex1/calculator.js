@@ -2,25 +2,20 @@ let runLoop = true;
 let userInput;
 const inputArr = [];
 
-function checkCondition() {
-  if (inputArr.length === 2) runLoop = false;
-  else if (inputArr.length === 1 && userInput === null) runLoop = false;
-}
-
 function changeStr() {
-  let myString;
+  let string;
   if (inputArr.length === 0) {
-    if (userInput === undefined) myString = `Dame un número`;
+    if (userInput === undefined) string = `Dame un número`;
     else if (userInput === null)
-      myString = `Me tienes que dar un número por lo menos ¬¬`;
+      string = `Me tienes que dar un número por lo menos ¬¬`;
   } else if (inputArr.length === 1 && userInput !== null)
-    myString = `Dame otro número o cancela`;
-  return myString;
+    string = `Dame otro número o cancela`;
+  return string;
 }
 
 function getInput() {
-  const myStr = changeStr();
-  userInput = prompt(myStr);
+  const string = changeStr();
+  userInput = prompt(string);
   if (userInput !== null) {
     userInput = parseInt(userInput, 10);
     if (!Number.isNaN(userInput)) inputArr.push(userInput);
@@ -28,7 +23,15 @@ function getInput() {
   checkCondition();
 }
 
+//función para cambiar el bool runLoop
+function checkCondition() {
+  if (inputArr.length === 2) runLoop = false;
+  else if (inputArr.length === 1 && userInput === null) runLoop = false;
+}
+//función para enseñar el resultado final
 function showResults() {
+  console.log(inputArr);
+  //raiz cuadrada
   if (inputArr.length === 1)
     alert(
       `la raíz cuadrada de ${inputArr[0]} es ${Math.sqrt(inputArr[0]).toFixed(
@@ -46,8 +49,10 @@ function showResults() {
   El resultado de la división de tus números es ${inputArr[0] / inputArr[1]}`);
 }
 
+//el loop
 while (runLoop) {
   getInput();
+  console.log(userInput);
 }
-
+//si el run para de correr llama la función showResults();
 if (!runLoop) showResults();
