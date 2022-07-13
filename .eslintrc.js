@@ -12,5 +12,6 @@ module.exports = {
     "no-plusplus": "off",
     "no-restricted-syntax": "off",
     "no-alert": "off",
+    "no-console": "off",
   },
 };
