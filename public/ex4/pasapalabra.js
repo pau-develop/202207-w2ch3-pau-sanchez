@@ -1,12 +1,3 @@
-console.log("hola");
-// Haz el juego del Pasapalabra. El programa deberá lanzar la definición de una palabra y el usuario deberá adivinar qué palabra estamos tratando, por ejemplo: '>>>'With the letter "M", Capital of Spain, located in the center of the country. '>>>' "Madrid" '>>>'Correct, you have 1 Point!
-// Tu juego debería hacer una pregunta por cada letra del alfabeto, al final del juego, y habiendo respondido todas las letras, deberá indicarle al usuario cuantas letras ha fallado y cuántas ha acertado. Si el usuario responde con "pasapalabra" el juego deberá estar preparado para entender que en ese momento, el usuario no responderá esa pregunta, y no estará acertada ni fallada, la dejará para la siguiente ronda. El juego deberá, cuando finalice, mostrar un ranking de usuarios con el nombre y ordenados por cantidad de letras acertadas.
-// ● El programa no debería hacer distinciones entre mayúsculas, minúsculas... Ejemplo: "animal" === "ANIMAL" // "Animal" // "aNiMal"...
-// ● El programa debe estar preparado para aceptar el input "END" para terminar el juego en cualquier momento, si esto sucede, el programa dirá cuántas letras ha acertado pero no entrará en el ranking.
-// ● Prepara tu programa para que no repita siempre las mismas preguntas, por ejemplo, de la misma letra, se podrían hacer tres preguntas diferentes.
-// ● Tener en cuenta que al hacer pasapalabra en una pregunta, si usais distintas preguntas para una misma letra, al dar la vuelta al rosco la pregunta deberia ser la misma.
-// ● Si el usuario falla la pregunta debeis mostrar la respuesta, ya sea en consola, en prompt o alert.
-
 let questions = [
   {
     letter: "a",
@@ -548,77 +539,25 @@ const questionsThree = [
   },
 ];
 
-let currentLetter = 0; //0 es a, 1 es b... etc
-
-const introGame = () => {
-  console.log(
-    `¡Bienvenidos al pasapalabra de SKYLAB! Ya conocéis las reglas, así que... ¡Empezemos a jugar!`
-  );
-  alert(
-    `¡Bienvenidos al pasapalabra de SKYLAB! Ya conocéis las reglas, así que... ¡Empezemos a jugar!`
-  );
-
-  questions = randomizeQuestions(questions, questionsTwo, questionsThree);
-  return nextLetter(currentLetter, questions);
-};
+const currentLetter = 0;
 
 const randomizeQuestions = (q, qTwo, qThree) => {
-  let tempArr = [q, qTwo, qThree];
+  const tempArr = [q, qTwo, qThree];
   for (let i = 0; i < q.length; i++) {
-    let random = Math.floor(Math.random() * 3);
+    const random = Math.floor(Math.random() * 3);
     q[i].question = tempArr[random][i].question;
     q[i].answer = tempArr[random][i].answer;
   }
   return q;
 };
 
-const checkForCurrentLetter = (current, questions) => {
-  if (current === questions.length - 1) current = 0;
-  else current++;
-  if (questions[current].status === 1 || questions[current].status === 2) {
-    current === questions.length - 1 ? (current = 0) : current++;
-    return checkForCurrentLetter(current, questions);
-  } else return nextLetter(current, questions);
-};
-
-const nextLetter = (current, questions) => {
-  console.log(`${questions[current].question}`);
-  let playerAnswer = prompt(`${questions[current].question}`).toLowerCase();
-  if (playerAnswer === "end") return endGame(questions);
-  else if (playerAnswer === "pasapalabra") {
-    console.log("Pasámos palabra...");
-    alert("Pasámos palabra...");
-  } else if (playerAnswer === questions[current].answer) {
-    questions[current].status = 1;
-    console.log(`Respuesta correcta! Vamos con la siguiente!`);
-    alert(`Respuesta correcta! Vamos con la siguiente!`);
-  } else {
-    questions[current].status = 2;
-    console.log(
-      `Vaya! Lo siento, pero la respuesta correcta es ${questions[current].answer}.`
-    );
-    alert(
-      `Vaya! Lo siento, pero la respuesta correcta es ${questions[current].answer}.`
-    );
-  }
-  checkForEndGame(current, questions);
-};
-
-const checkForEndGame = (current, questions) => {
-  for (let i = 0; i < questions.length; i++) {
-    if (questions[i].status === 0)
-      return checkForCurrentLetter(current, questions);
-  }
-  return endGame(questions);
-};
-
-const endGame = (questions) => {
+const endGame = (myQuestions) => {
   let wrong = 0;
   let correct = 0;
   let unanswered = 0;
-  for (let i = 0; i < questions.length; i++) {
-    if (questions[i].status === 1) correct++;
-    else if (questions[i].status === 2) wrong++;
+  for (let i = 0; i < myQuestions.length; i++) {
+    if (myQuestions[i].status === 1) correct++;
+    else if (myQuestions[i].status === 2) wrong++;
     else unanswered++;
   }
   if (unanswered === 0) {
@@ -636,6 +575,62 @@ const endGame = (questions) => {
       `Fin del juego! el jugador ha acertado ${correct} palabras, ha fallado ${wrong} y ha dejado ${unanswered} sin contestar`
     );
   }
+};
+
+const checkForCurrentLetter = (current, questions) => {
+  let scopeCurrent = current;
+  if (scopeCurrent === questions.length - 1) scopeCurrent = 0;
+  else scopeCurrent++;
+  if (
+    questions[scopeCurrent].status === 1 ||
+    questions[scopeCurrent].status === 2
+  ) {
+    scopeCurrent = scopeCurrent === questions.length - 1 ? 0 : scopeCurrent++;
+    return checkForCurrentLetter(scopeCurrent, questions);
+  } else return nextLetter(scopeCurrent, questions);
+};
+
+const checkForEndGame = (current, myQuestions) => {
+  for (let i = 0; i < myQuestions.length; i++) {
+    if (myQuestions[i].status === 0)
+      return checkForCurrentLetter(current, myQuestions);
+  }
+  return endGame(myQuestions);
+};
+
+const nextLetter = (current, myQuestions) => {
+  console.log(`${myQuestions[current].question}`);
+  const playerAnswer = prompt(`${myQuestions[current].question}`).toLowerCase();
+  if (playerAnswer === "end") return endGame(myQuestions);
+  else if (playerAnswer === "pasapalabra") {
+    console.log("Pasámos palabra...");
+    alert("Pasámos palabra...");
+  } else if (playerAnswer === myQuestions[current].answer) {
+    myQuestions[current].status = 1;
+    console.log(`Respuesta correcta! Vamos con la siguiente!`);
+    alert(`Respuesta correcta! Vamos con la siguiente!`);
+  } else {
+    myQuestions[current].status = 2;
+    console.log(
+      `Vaya! Lo siento, pero la respuesta correcta es ${myQuestions[current].answer}.`
+    );
+    alert(
+      `Vaya! Lo siento, pero la respuesta correcta es ${myQuestions[current].answer}.`
+    );
+  }
+  return checkForEndGame(current, myQuestions);
+};
+
+const introGame = () => {
+  console.log(
+    `¡Bienvenidos al pasapalabra de SKYLAB! Ya conocéis las reglas, así que... ¡Empezemos a jugar!`
+  );
+  alert(
+    `¡Bienvenidos al pasapalabra de SKYLAB! Ya conocéis las reglas, así que... ¡Empezemos a jugar!`
+  );
+
+  questions = randomizeQuestions(questions, questionsTwo, questionsThree);
+  return nextLetter(currentLetter, questions);
 };
 
 introGame();
