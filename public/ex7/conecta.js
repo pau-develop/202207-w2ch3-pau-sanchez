@@ -179,7 +179,7 @@ const checkForWinner = (tokenLocation) => {
   if (!hasWon) {
     hasWon = checkVertical(tokenLocation);
     if (!hasWon) {
-      hasWon = checkDiagonal(tokenLocation);
+      hasWon = checkDiagonal();
     }
   }
   if (hasWon) endGame();
