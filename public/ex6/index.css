@@ -2,7 +2,7 @@
   background: darkblue;
   margin: 0;
   padding: 0;
-  font-family: "myFont2";
+  font-family: "myFont2", sans-serif;
   font-weight: bold;
   color: white;
 }
